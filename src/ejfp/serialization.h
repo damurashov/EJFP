@@ -8,7 +8,7 @@
 #ifndef EJFP_SERIALIZATION_H_
 #define EJFP_SERIALIZATION_H_
 
-#include "fieldVariant.h"
+#include "ejfp/fieldVariant.h"
 #include <stddef.h>
 
 #ifdef __cplusplus
