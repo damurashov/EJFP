@@ -8,20 +8,20 @@
 #ifndef EJFP_FIELDVARIANT_H_
 #define EJFP_FIELDVARIANT_H_
 
-typedef enum EjfpFieldVariantType {
+typedef enum {
 	EjfpFieldVariantTypeInteger = 0,
 	EjfpFieldVariantTypeBoolean,
 	EjfpFieldVariantTypeString,
-};
+} EjfpFieldVariantType;
 
-typedef struct EjfpFieldVariant {
+typedef struct {
+	EjfpFieldVariantType fieldType;
+	const char *fieldName;
 	union {
 		const char *stringValue;
 		int integerValue;
 		int booleanValue;
 	};
-	const char *fieldName;
-	EjfpFieldVariantType fieldType;
-};
+} EjfpFieldVariant;
 
 #endif  // EJFP_FIELDVARIANT_H_
