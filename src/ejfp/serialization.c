@@ -5,7 +5,8 @@
 //  Author: Dmitry Murashov (dmtr <DOT> murashov <AT> geoscan.aero)
 //
 
-#include "fieldVariant.h"
+#include "ejfp/fieldVariant.h"
+#include "ejfp/error.h"
 #include <mtojson/mtojson.h>
 #include <string.h>
 
@@ -91,6 +92,10 @@ size_t ejfpSerialize(EjfpFieldVariant *aFieldVariants, const size_t aFieldVarian
 	memset((void *)outputToJsons, 0, kOutputArraySize * sizeof(struct to_json));
 	outputToJsonInitialize(outputToJsons, aFieldVariants, aFieldVariantsSize);
 	const size_t kNSerialized = json_generate(aOutBuffer, outputToJsons, aOutBufferSize);
+
+	if (kNSerialized == 0) {
+		ejfpSetErrorCode(EjfpErrorSerializationNoMemory);
+	}
 
 	return kNSerialized;
 }
