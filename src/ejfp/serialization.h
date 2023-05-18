@@ -9,7 +9,7 @@
 #define EJFP_SERIALIZATION_H_
 
 #include "fieldVariant.h"
-#include <stdint.h>
+#include <stddef.h>
 
 #ifdef __cplusplus
 extern "C" {
