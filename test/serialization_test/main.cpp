@@ -1,8 +1,9 @@
 #define OHDEBUG_PORT_ENABLE 1
 #define OHDEBUG_TAGS_ENABLE "Trace"
 
-#include <ejfp/serialization.h>
 #include <OhDebug.hpp>
+
+#include <ejfp/serialization.h>
 #include <cstddef>
 
 OHDEBUG_TEST("Serialization: Basic output")
@@ -27,8 +28,9 @@ OHDEBUG_TEST("Serialization: Basic output")
 			0
 		}
 	};
-	ejfpSerialize(ejfpFieldVariants, kNFieldVariants, outputBuffer, kOutputBufferSize);
-	OHDEBUG("Trace", outputBuffer);
+	OHDEBUG("Trace", "first", ejfpFieldVariants[0].stringValue);
+	std::size_t outputSize = ejfpSerialize(ejfpFieldVariants, kNFieldVariants, outputBuffer, kOutputBufferSize);
+	OHDEBUG("Trace", "outputBuffer", outputBuffer, "outputSize", outputSize);
 }
 
 int main(void)
