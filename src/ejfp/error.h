@@ -12,7 +12,8 @@ typedef enum {
 	EjfpErrorSerializationNoMemory = 0,
 	EjfpErrorDeserializationInvalidSyntax,
 	EjfpErrorDeserializationPartitioned,
-	EjfpErrorDeserializationNoMemory
+	EjfpErrorDeserializationNoMemory,
+	EjfpErrorDeserializationUnsupportedJsonStructure,  // EJFP does not support complicated JSON structures
 } EjfpError;
 
 #ifdef __cplusplus
