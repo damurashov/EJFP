@@ -9,6 +9,15 @@
 #include <mtojson/mtojson.h>
 #include <string.h>
 
+typedef struct {
+	struct to_json toJson;
+
+	/// @brief Misc. service fields
+	union {
+		size_t stringValueLength;
+	};
+} WrappedToJson;
+
 static void tojsonSetObjectMarkerStart(struct to_json *aInstance);
 static void tojsonSetBoolean(struct to_json *aInstance, const char *aFieldName, int *aValue);
 static void tojsonSetInteger(struct to_json *aInstance, const char *aFieldName, int *aValue);
@@ -43,32 +52,31 @@ static inline void tojsonSetString(struct to_json *aInstance, const char *aField
 
 static inline size_t tojsonOutputArraySize(size_t aNFields)
 {
-	return aNFields + 2;
+	return aNFields + 1;
 }
 
-void outputToJsonInitialize(struct to_json *aOutputTojsons, EjfpFieldVariant *aFieldVariants, size_t aFieldVariantsSize)
+void outputToJsonInitialize(struct to_json *aOutputToJsons, EjfpFieldVariant *aFieldVariants, size_t aFieldVariantsSize)
 {
 	const size_t kOutputArraySize = tojsonOutputArraySize(aFieldVariantsSize);
-	tojsonSetObjectMarkerStart(&aOutputTojsons[0]);  // Start element, see "mtojson" implementation
+	tojsonSetObjectMarkerStart(&aOutputToJsons[0]);  // Start element, see "mtojson" implementation
 
-	for (size_t i = 1; i < kOutputArraySize - 1; ++i) {
-		const size_t kFieldVariantId = i + 1;
-		switch (aFieldVariants[kFieldVariantId].fieldType) {
+	for (size_t i = 0; i < kOutputArraySize; ++i) {
+		switch (aFieldVariants[i].fieldType) {
 			case EjfpFieldVariantTypeBoolean:
-				tojsonSetBoolean(&aOutputTojsons[i], aFieldVariants[kFieldVariantId].fieldName,
-					&aFieldVariants[kFieldVariantId].booleanValue);
+				tojsonSetBoolean(&aOutputToJsons[i], aFieldVariants[i].fieldName,
+					&aFieldVariants[i].booleanValue);
 
 				break;
 
 			case EjfpFieldVariantTypeInteger:
-				tojsonSetInteger(&aOutputTojsons[i], aFieldVariants[kFieldVariantId].fieldName,
-					&aFieldVariants[kFieldVariantId].integerValue);
+				tojsonSetInteger(&aOutputToJsons[i], aFieldVariants[i].fieldName,
+					&aFieldVariants[i].integerValue);
 
 				break;
 
 			case EjfpFieldVariantTypeString:
-				tojsonSetString(&aOutputTojsons[i], aFieldVariants[kFieldVariantId].fieldName,
-					aFieldVariants[kFieldVariantId].stringValue);
+				tojsonSetString(&aOutputToJsons[i], aFieldVariants[i].fieldName,
+					aFieldVariants[i].stringValue);
 
 				break;
 		}
@@ -79,10 +87,10 @@ size_t ejfpSerialize(EjfpFieldVariant *aFieldVariants, const size_t aFieldVarian
 	const size_t aOutBufferSize)
 {
 	const size_t kOutputArraySize = tojsonOutputArraySize(aFieldVariantsSize);
-	struct to_json outputTojsons[kOutputArraySize];
-	memset((void *)outputTojsons, 0, kOutputArraySize * sizeof(struct to_json));
-	outputToJsonInitialize(outputTojsons, aFieldVariants, aFieldVariantsSize);
-	const size_t kNSerialized = json_generate(aOutBuffer, outputTojsons, aOutBufferSize);
+	struct to_json outputToJsons[kOutputArraySize];
+	memset((void *)outputToJsons, 0, kOutputArraySize * sizeof(struct to_json));
+	outputToJsonInitialize(outputToJsons, aFieldVariants, aFieldVariantsSize);
+	const size_t kNSerialized = json_generate(aOutBuffer, outputToJsons, aOutBufferSize);
 
 	return kNSerialized;
 }
