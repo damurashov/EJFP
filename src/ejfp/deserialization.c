@@ -17,10 +17,20 @@ typedef enum {
 	BoolTrue,
 } Bool;
 
+/// @brief Infers the minimum size of a token array based on how many fields are
+/// expected in an incoming JSON
 static size_t maxJsmnTokens(size_t aFieldVariantArraySize);
 
 /// @brief  Checks whether JSON structure is supported
 Bool jsmntoksIsValid(jsmntok_t *aJsmntoks, size_t aJsmntoksSize, int aNParsedTokens);
+
+/// @brief Sets positions in an input string for input tokens
+static inline EjfpError jsmntoksTokenize(Ejfp *aEjfp, jsmntok_t *jsmntoks, size_t jsmntoksSize, const char *aInputBuffer,
+	size_t aInputBufferSize);
+
+/// @brief  Converts tokens into values
+static inline EjfpError jsmntoksParse(Ejfp *aEjfp, EjfpFieldVariant *aFieldVariantArray, size_t aFieldVariantArraySize,
+	jsmntok_t *aJsmntokArray, size_t aJsmntokArraySize);
 
 static inline size_t maxJsmnTokens(size_t aFieldVariantArraySize)
 {
@@ -54,7 +64,7 @@ Bool jsmntoksIsValid(jsmntok_t *aJsmntoks, size_t aJsmntoksSize, int aNParsedTok
 	return BoolTrue;
 }
 
-static inline EjfpError jsmntoksParse(Ejfp *aEjfp, jsmntok_t *jsmntoks, size_t jsmntoksSize, const char *aInputBuffer,
+static inline EjfpError jsmntoksTokenize(Ejfp *aEjfp, jsmntok_t *jsmntoks, size_t jsmntoksSize, const char *aInputBuffer,
 	size_t aInputBufferSize)
 {
 	int error = EjfpOk;
@@ -84,6 +94,12 @@ static inline EjfpError jsmntoksParse(Ejfp *aEjfp, jsmntok_t *jsmntoks, size_t j
 	return error;
 }
 
+static inline EjfpError jsmntoksParse(Ejfp *aEjfp, EjfpFieldVariant *aFieldVariantArray, size_t aFieldVariantArraySize,
+	jsmntok_t *aJsmntokArray, size_t aJsmntokArraySize)
+{
+	return EjfpOk;
+}
+
 int ejfpDeserialize(Ejfp *aEjfp, EjfpFieldVariant *aFieldVariantArray, size_t aFieldVariantArraySize,
 	const char *aInputBuffer, size_t aInputBufferSize)
 {
@@ -91,7 +107,13 @@ int ejfpDeserialize(Ejfp *aEjfp, EjfpFieldVariant *aFieldVariantArray, size_t aF
 	jsmntok_t jsmntoks[jsmntoksSize];
 	int parsingError = EjfpOk;
 	memset(jsmntoks, 0, sizeof(jsmntok_t) * jsmntoksSize);
-	parsingError = jsmntoksParse(aEjfp, jsmntoks, jsmntoksSize, aInputBuffer, aInputBufferSize);
+	parsingError = jsmntoksTokenize(aEjfp, jsmntoks, jsmntoksSize, aInputBuffer, aInputBufferSize);
+
+	if (EjfpOk != parsingError) {
+		return parsingError;
+	}
+
+	parsingError = jsmntoksParse(aEjfp, aFieldVariantArray, aFieldVariantArraySize, jsmntoks, jsmntoksSize);
 
 	return parsingError;
 }
