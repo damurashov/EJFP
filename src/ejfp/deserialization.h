@@ -8,7 +8,7 @@
 #ifndef EJFP_DESERIALIZATION_H_
 #define EJFP_DESERIALIZATION_H_
 
-#include "ejfp/error.h"
+#include "ejfp/ejfp.h"
 #include "ejfp/fieldVariant.h"
 
 #ifdef __cplusplus
@@ -18,7 +18,7 @@ extern "C" {
 /// @brief Deserializes bytes into an array of `EjfpFieldVariant` instances
 ///
 /// @return std::size_t
-std::size_t ejfpDeserialize(EjfpFieldVariant *aFieldVariantArray, size_t aFieldVariantArraySize,
+int ejfpDeserialize(Ejfp *aEjfp, EjfpFieldVariant *aFieldVariantArray, size_t aFieldVariantArraySize,
 	const char *aInputBuffer, size_t aInputBufferSize);
 
 #ifdef __cplusplus
