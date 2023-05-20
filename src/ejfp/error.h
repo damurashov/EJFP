@@ -9,7 +9,8 @@
 #define EJFP_ERROR_H_
 
 typedef enum {
-	EjfpErrorSerializationNoMemory = 0,
+	EjfpOk,
+	EjfpErrorSerializationNoMemory = 1,
 	EjfpErrorDeserializationInvalidSyntax,
 	EjfpErrorDeserializationPartitioned,
 	EjfpErrorDeserializationNoMemory,
