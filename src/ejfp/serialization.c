@@ -5,8 +5,9 @@
 //  Author: Dmitry Murashov (dmtr <DOT> murashov <AT> geoscan.aero)
 //
 
-#include "ejfp/fieldVariant.h"
+#include "ejfp/ejfp.h"
 #include "ejfp/error.h"
+#include "ejfp/fieldVariant.h"
 #include <mtojson/mtojson.h>
 #include <string.h>
 
@@ -84,12 +85,13 @@ void outputToJsonInitialize(struct to_json *aOutputToJsons, EjfpFieldVariant *aF
 	}
 }
 
-size_t ejfpSerialize(EjfpFieldVariant *aFieldVariants, const size_t aFieldVariantsSize, char *aOutBuffer,
+size_t ejfpSerialize(Ejfp *aEjfp, EjfpFieldVariant *aFieldVariants, const size_t aFieldVariantsSize, char *aOutBuffer,
 	const size_t aOutBufferSize)
 {
 	const size_t kOutputArraySize = tojsonOutputArraySize(aFieldVariantsSize);
 	struct to_json outputToJsons[kOutputArraySize];
 	size_t kNSerialized = 0;
+	(void)aEjfp;
 	memset((void *)outputToJsons, 0, kOutputArraySize * sizeof(struct to_json));
 	outputToJsonInitialize(outputToJsons, aFieldVariants, aFieldVariantsSize);
 	kNSerialized = json_generate(aOutBuffer, outputToJsons, aOutBufferSize);

@@ -8,6 +8,7 @@
 #ifndef EJFP_SERIALIZATION_H_
 #define EJFP_SERIALIZATION_H_
 
+#include "ejfp/ejfp.h"
 #include "ejfp/fieldVariant.h"
 #include <stddef.h>
 
@@ -17,8 +18,8 @@ extern "C" {
 
 /// @brief
 /// @return 0, if failed. Output size otherwise
-size_t ejfpSerialize(EjfpFieldVariant *aFieldVariants, const size_t aFieldVariantsSize, char *aOut,
-	const size_t aOutSize);
+size_t ejfpSerialize(Ejfp *aEjfp, EjfpFieldVariant *aFieldVariants, const size_t aFieldVariantsSize,
+	char *aOut, const size_t aOutSize);
 
 #ifdef __cplusplus
 }
