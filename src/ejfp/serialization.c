@@ -89,9 +89,10 @@ size_t ejfpSerialize(EjfpFieldVariant *aFieldVariants, const size_t aFieldVarian
 {
 	const size_t kOutputArraySize = tojsonOutputArraySize(aFieldVariantsSize);
 	struct to_json outputToJsons[kOutputArraySize];
+	size_t kNSerialized = 0;
 	memset((void *)outputToJsons, 0, kOutputArraySize * sizeof(struct to_json));
 	outputToJsonInitialize(outputToJsons, aFieldVariants, aFieldVariantsSize);
-	const size_t kNSerialized = json_generate(aOutBuffer, outputToJsons, aOutBufferSize);
+	kNSerialized = json_generate(aOutBuffer, outputToJsons, aOutBufferSize);
 
 	if (kNSerialized == 0) {
 		ejfpSetErrorCode(EjfpErrorSerializationNoMemory);
