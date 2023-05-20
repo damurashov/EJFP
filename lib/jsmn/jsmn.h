@@ -24,6 +24,7 @@
 #ifndef JSMN_H
 #define JSMN_H
 
+#include "jsmn_fwd.h"
 #include <stddef.h>
 
 #ifdef __cplusplus
@@ -77,16 +78,6 @@ typedef struct {
 } jsmntok_t;
 
 /**
- * JSON parser. Contains an array of token blocks available. Also stores
- * the string being parsed now and current position in that string.
- */
-typedef struct {
-  unsigned int pos;     /* offset in the JSON string */
-  unsigned int toknext; /* next token to allocate */
-  int toksuper;         /* superior token node, e.g. parent object or array */
-} jsmn_parser;
-
-/**
  * Create JSON parser over an array of tokens
  */
 JSMN_API void jsmn_init(jsmn_parser *parser);
@@ -99,7 +90,6 @@ JSMN_API void jsmn_init(jsmn_parser *parser);
 JSMN_API int jsmn_parse(jsmn_parser *parser, const char *js, const size_t len,
                         jsmntok_t *tokens, const unsigned int num_tokens);
 
-#ifndef JSMN_HEADER
 /**
  * Allocates a fresh unused token from the token pool.
  */
@@ -458,8 +448,6 @@ JSMN_API void jsmn_init(jsmn_parser *parser) {
   parser->toknext = 0;
   parser->toksuper = -1;
 }
-
-#endif /* JSMN_HEADER */
 
 #ifdef __cplusplus
 }
