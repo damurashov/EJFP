@@ -30,10 +30,16 @@ typedef struct {
 
 	/// @brief Required for deserialization, when the string is not
 	/// null-terminated. Must always be initialized.
+	///
+	/// @pre If 0, `fieldName` is a NULL-terminated string. Otherwise, this
+	/// value MUST be equal to the actual string length.
 	size_t fieldNameLength;
 
 	/// @brief Required for deserialization, when the string is not
-	/// null-terminated. Must always be initialized.
+	/// null-terminated.
+	///
+	/// @pre If 0, `stringValue` is a NULL-terminated string. Otherwise, this
+	/// value MUST be equal to the actual string length
 	size_t stringValueLength;
 } EjfpFieldVariant;
 
