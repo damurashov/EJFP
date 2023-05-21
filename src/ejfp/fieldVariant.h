@@ -11,7 +11,8 @@
 #include <stddef.h>
 
 typedef enum {
-	EjfpFieldVariantTypeInteger = 0,
+	EjfpFieldVariantTypeUninitialized = 0,
+	EjfpFieldVariantTypeInteger,
 	EjfpFieldVariantTypeBoolean,
 	EjfpFieldVariantTypeString,
 	EjfpFieldVariantTypeFloat,
