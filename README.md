@@ -1,5 +1,8 @@
 # Embedded JSON Field Protocol
 
+*Warning: WIP. It works under the constraints mentioned below, but test it
+before you use it in your application.*
+
 EJFP is a neat little library for serializing and deserializing JSON, relying
 on 2 other neat little libraries: "jsmn" and "mtojson". It is small, efficient,
 `malloc`-free, self-contained (drop-n-use), and primarily targets embedded
