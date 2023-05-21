@@ -17,8 +17,8 @@ extern "C" {
 #endif  // __cplusplus
 
 /// @brief
-/// @return 0, if failed. Output size otherwise
-size_t ejfpSerialize(Ejfp *aEjfp, EjfpFieldVariant *aFieldVariants, const size_t aFieldVariantsSize,
+/// @return Error code, if failed. Output size otherwise
+int ejfpSerialize(Ejfp *aEjfp, EjfpFieldVariant *aFieldVariants, const size_t aFieldVariantsSize,
 	char *aOut, const size_t aOutSize);
 
 #ifdef __cplusplus

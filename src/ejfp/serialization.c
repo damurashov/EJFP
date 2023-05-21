@@ -85,7 +85,7 @@ void outputToJsonInitialize(struct to_json *aOutputToJsons, EjfpFieldVariant *aF
 	}
 }
 
-size_t ejfpSerialize(Ejfp *aEjfp, EjfpFieldVariant *aFieldVariants, const size_t aFieldVariantsSize, char *aOutBuffer,
+int ejfpSerialize(Ejfp *aEjfp, EjfpFieldVariant *aFieldVariants, const size_t aFieldVariantsSize, char *aOutBuffer,
 	const size_t aOutBufferSize)
 {
 	const size_t kOutputArraySize = tojsonOutputArraySize(aFieldVariantsSize);
