@@ -9,12 +9,12 @@
 #define EJFP_ERROR_H_
 
 typedef enum {
-	EjfpOk,
-	EjfpErrorSerializationNoMemory = 1,
-	EjfpErrorDeserializationInvalidSyntax,
-	EjfpErrorDeserializationPartitioned,
-	EjfpErrorDeserializationNoMemory,
-	EjfpErrorDeserializationUnsupportedJsonStructure,  // EJFP does not support complicated JSON structures
+	EjfpOk = 0,
+	EjfpErrorSerializationNoMemory = -1,
+	EjfpErrorDeserializationInvalidSyntax = -2,
+	EjfpErrorDeserializationPartitioned = -3,
+	EjfpErrorDeserializationNoMemory = -4,
+	EjfpErrorDeserializationUnsupportedJsonStructure = -5,  // EJFP does not support complicated JSON structures
 } EjfpError;
 
 #ifdef __cplusplus
