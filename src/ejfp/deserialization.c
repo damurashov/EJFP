@@ -13,6 +13,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#ifndef OHDEBUG
+#define OHDEBUG(...)
+#endif
+
 typedef enum {
 	BoolFalse = 0,
 	BoolTrue,
@@ -111,7 +115,7 @@ static inline EjfpError jsmntoksParse(Ejfp *aEjfp, EjfpFieldVariant *aFieldVaria
 
 	for (jsmntok_t *token = &aJsmntokArray[1]; token < aJsmntokArray + aJsmntokArraySize; ++token, ++iFieldVariant) {
 		// Initialize field name
-		const size_t tokenLength = token->end - token->start;
+		size_t tokenLength = token->end - token->start;
 		const char *tokenStart = &aInputBuffer[token->start];
 		const char *tokenEnd = &aInputBuffer[token->end];
 		aFieldVariantArray[iFieldVariant].fieldName = tokenStart;
@@ -121,6 +125,7 @@ static inline EjfpError jsmntoksParse(Ejfp *aEjfp, EjfpFieldVariant *aFieldVaria
 		++token;
 		tokenStart = &aInputBuffer[token->start];
 		tokenEnd = &aInputBuffer[token->end];
+		tokenLength = token->end - token->start;
 
 		{
 			switch (token->type) {
