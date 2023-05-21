@@ -28,10 +28,12 @@ typedef struct {
 		float floatValue;
 	};
 
-	/// @brief Required for deserialization, when the string is not null-terminated
+	/// @brief Required for deserialization, when the string is not
+	/// null-terminated. Must always be initialized.
 	size_t fieldNameLength;
 
-	/// @brief Required for deserialization, when the string is not null-terminated
+	/// @brief Required for deserialization, when the string is not
+	/// null-terminated. Must always be initialized.
 	size_t stringValueLength;
 } EjfpFieldVariant;
 
