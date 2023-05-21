@@ -11,7 +11,7 @@ serializing and deserializing JSON. The set of limitations is as follows:
 - The library is not thread-safe (YET);
 - The library is stateless (YET), meaning that you cannot feed it a chunk of
   JSON, and then the next one later;
-- The library does not separate between JSON objects (YET);
+- The library cannot treat multiple JSON objects in a serial channel (YET);
 - The library only treats JSON objects with integers, strings, booleans,
   floats, and `null`s, i.e. JSON structures of the following format:
 
