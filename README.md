@@ -2,5 +2,5 @@
 
 # TODO
 
-- deser: return the number of parsed tokens;
-- noisy channel, localize JSON;
+- Fully stateful deserialization;
+- Inter-backend compatibility: `null` values;
