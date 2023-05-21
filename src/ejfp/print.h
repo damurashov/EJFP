@@ -70,7 +70,55 @@ static inline void ejfpFieldVariantPrint(EjfpFieldVariant const *aEjfpFieldVaria
 
 static inline std::ostream &operator<<(std::ostream &aOut, const EjfpFieldVariant &aEjfpFieldVariant)
 {
-	// TODO:
+	// Print field name
+	aOut << "EjfpFieldVariant{\"";
+
+	for (size_t i = 0; i < aEjfpFieldVariant.fieldNameLength; ++i) {
+		aOut << aEjfpFieldVariant.fieldName[i];
+	}
+
+	printf("\":");
+
+	// Print field value
+	switch (aEjfpFieldVariant.fieldType) {
+		case EjfpFieldVariantTypeString:
+			printf("\"");
+
+			for (size_t i = 0; i < aEjfpFieldVariant.stringValueLength; ++i) {
+				aOut << aEjfpFieldVariant.stringValue[i];
+			}
+
+			aOut << "\"";
+
+			break;
+
+		case EjfpFieldVariantTypeFloat:
+			aOut << aEjfpFieldVariant.floatValue;
+
+			break;
+
+		case EjfpFieldVariantTypeNull:
+			aOut << "null";
+
+			break;
+
+		case EjfpFieldVariantTypeInteger:
+			aOut << aEjfpFieldVariant.integerValue;
+
+			break;
+
+		case EjfpFieldVariantTypeBoolean:
+			if (aEjfpFieldVariant.booleanValue) {
+				aOut << "true";
+			} else {
+				aOut << "false";
+			}
+
+			break;
+	}
+
+	aOut << "}";
+
 	return aOut;
 }
 
