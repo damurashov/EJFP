@@ -4,6 +4,7 @@
 #include <OhDebug.hpp>
 
 #include <ejfp/deserialization.h>
+#include <ejfp/print.h>
 #include <ejfp/serialization.h>
 #include <cstddef>
 #include <cstring>
@@ -57,8 +58,8 @@ OHDEBUG_TEST("Deserialization: Basic input")
 	OHDEBUG("Trace", "error code:", error);
 
 	for (std::size_t i = 0; i < kNEjfpFieldVariants; ++i) {
-		auto type = ejfpFieldVariants[i].fieldType;
-		OHDEBUG("Trace", "ejfp type", type);
+		ejfpFieldVariantPrint(&ejfpFieldVariants[i]);
+		std::cout << std::endl;
 	}
 }
 
