@@ -17,7 +17,7 @@ extern "C" {
 
 /// @brief Deserializes bytes into an array of `EjfpFieldVariant` instances
 ///
-/// @return std::size_t
+/// @return Number of filled tokens in `EjfpFieldVariant`. Error code otherwise
 int ejfpDeserialize(Ejfp *aEjfp, EjfpFieldVariant *aFieldVariantArray, size_t aFieldVariantArraySize,
 	const char *aInputBuffer, size_t aInputBufferSize);
 
